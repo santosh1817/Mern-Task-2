@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import moment from 'moment'
 
 class ListReservation extends Component {
     constructor(props){
         super(props)
         this.state={
             reservationsList:[],
-            radioButton:''
+            radioButton:'',
+            reservations:[]
         }
     }
 
@@ -24,6 +26,24 @@ class ListReservation extends Component {
         })
     }
 
+    handleRadioUpcoming=(e)=>{
+   
+      //console.log(date)
+      this.setState(()=>({
+        //reservations:this.state.reservationsList,
+        reservations:this.state.reservationsList.filter((item)=>{
+          //console.log( moment(new Date(item.date)).format('DD-MM-YYYY'),typeof date.toLocaleDateString)
+          var date1=new Date(item.date)
+          // var date2=new Date()
+          console.log(date1,'ii')
+          return item
+        })
+      }))
+      //console.log(this.state.reservationsList)
+
+    
+    }
+
     
     render() {
         return (
@@ -36,6 +56,7 @@ class ListReservation extends Component {
                    id="Upcoming reservations"
                    name="reservation"
                    value={this.state.radioButton}
+                   onChange={this.handleRadioUpcoming}
                    
                   />
                   <label  >
@@ -68,14 +89,14 @@ class ListReservation extends Component {
 
             <tbody>
             {
-              this.state.reservationsList.map(form =>{
+              this.state.reservations.map(form =>{
                 return (
                    
                   <tr key ={form._id} className="actiontext">
                     <td> { form.username.username } </td>
                     <td> { form.mobile } </td>
                     <td> { form.service }</td>
-                    <td> { form.date  }</td>
+                    <td> { moment(new Date(form.date)).format('DD-MM-YYYY') }</td>
                     <td> { form.timeSlot }</td>
                     <td> { form.message}</td>
                   </tr>
