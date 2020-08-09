@@ -94,11 +94,12 @@ userSchema.statics.findByToken=function(token){
         return Promise.reject(err)
     }
     return User.findOne({
-        id:tokenData._id,
+        _id:tokenData._id,
         'tokens.token':token
-
     })
 }
+
+
 userSchema.pre('save',function(next){
     const user=this
     if(user.isNew){

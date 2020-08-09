@@ -42,7 +42,24 @@ router.delete('/logout', authenticateUser,(req,res)=>{
         res.send(err)
     })
 })
+router.get('/loggedinuser', authenticateUser,async function(req,res){
+    //const {user,token}=req
+    try{
+    let users=await User.find()
+    console.log(users)
+    users.forEach((user)=>{
+        user.tokens.forEach((token)=>{
+           if(token.token===req.token){
+                return res.send(user)
+            }
+        })
+     })
+    }catch(e){
+        return res.send(e,{msg:'error'})
+    }
+})
 
 
 module.exports={
-    usersRouter:router}
+    usersRouter:router
+}

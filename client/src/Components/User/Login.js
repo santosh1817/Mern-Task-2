@@ -3,6 +3,7 @@ import axios from 'axios';
 // import form from './../RegisterForm/form.css';
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
+
 class Login extends React.Component {
     constructor(props) {
         super(props) 
@@ -28,10 +29,12 @@ class Login extends React.Component {
             password: ''
             }))
         } else {
+
+                console.log(response)
                 // write this to localStorage 
                 localStorage.setItem('token', response.data.token)
                 // redirect to notes page 
-                this.props.history.push('/requestform/view')
+                this.props.history.push('/reservation/view')
                 // change the navigation links = update the state of isAuthenticated in the parent component
                 this.props.handleAuthentication(true)
             }
