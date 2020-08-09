@@ -6,6 +6,7 @@ import axios from 'axios';
 import './app.css';
 import CreateReservation from './Components/Reservation/CreateReservation'
 import ListReservation from './Components/Reservation/ListReservation'
+import Home from './Components/Home/Home'
 
 
 class App extends React.Component{
@@ -42,6 +43,7 @@ class App extends React.Component{
                 {this.state.isAuthenticated ? (
                  
                   <div className=" navitems1 "> 
+                  <li className="nav-item ml-4"><Link to="/" >Home</Link></li>
                   <li className="nav-item ml-4"><Link to="/reservation/create" >Create reservation</Link></li>
                   <li className="nav-item ml-4"><Link to="/reservation/view" >View reservation</Link></li>
                   <li className="nav-item ml-4"><Link to="/users/logout" >Logout</Link></li>
@@ -50,8 +52,10 @@ class App extends React.Component{
 
                   ) : (
                   <div className="navitems1">
-                    <li className="nav-item"><Link to="/users/register">Register</Link></li>
+                    <li className="nav-item ml-5"><Link to="/" >Home</Link></li>
+                    <li className="nav-item ml-5"><Link to="/users/register">Register</Link></li>
                     <li className="nav-item ml-5"><Link to="/users/login">Login</Link></li>
+                    
                   </div>
                 )}
               </ul>
@@ -59,19 +63,19 @@ class App extends React.Component{
 
           </div>
           <Switch>
+          <Route path="/" exact={true} component={ Home } />
           <Route path="/reservation/view" component={ ListReservation } />
           <Route path="/reservation/create" component={ CreateReservation } />
           <Route path="/users/register" component={ Register } />
           <Route path="/users/login" render={(props) => {
               return <Login {...props} handleAuthentication={this.handleAuthentication} />
           }} />
-          <div className="jumbotron jumbotron-fluid">
-            <div className="container">
-                <h1 className="display-4">Welcome to D Magical Saloon</h1>
-                <p className="lead">Built using Node + Express + React + Mongo</p><br/>
-                <p>Please Login to use the online   reservation portal</p>
-            </div>
-          </div>
+
+          
+
+
+
+
           <Route path="/users/logout" render={(props) => {
               axios.delete('http://localhost:3005/users/logout', {
                 headers: {
@@ -79,6 +83,7 @@ class App extends React.Component{
                 }
                 })
                 .then(response => {
+                
                   props.history.push('/users/login')
                   this.setState(() => ({
                     isAuthenticated: false

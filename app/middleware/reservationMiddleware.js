@@ -9,20 +9,16 @@ const reservationMiddleware= function(req,res,next) {
                 if(reservations.length>0){
                     
                     reservations.forEach((reservations)=>{
-                        //console.log(reservations)
+                       
                         
-                        
-                        //console.log(req.body.timeSlot,reservations.timeSlot)
                         if(reservations.timeSlot.includes(req.body.timeSlot)){
-                            //return res.send({notice:'slot is not there '})
+
                             status=false
                                                     
                         }
                         
                     })
-                    
-                    
-                    
+                                      
                 }
                 if(status==false){
                     res.send({error:`slot ${req.body.timeSlot} is not available for the date ${req.body.date} `})

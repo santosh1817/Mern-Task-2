@@ -7,8 +7,7 @@ const { authenticateUser}=require('../middleware/authentication')
 
 
 router.post('/create',authenticateUser,reservationMiddleware,(req,res)=>{
-    
-   
+      
     const reservation=new Reservation(req.body)
     reservation.save()
     .then(response=>{
@@ -23,13 +22,10 @@ router.get('/view',authenticateUser,(req,res)=>{
 
     Reservation.find().populate('username','username')
     .then(response=>{
-        //console.log(response)
 
         let filteredReservations=[]
         response.forEach((item)=>{
             
-            
-           
             if(item.username._id.toString()===req.user._id.toString()){
 
                 filteredReservations.push(item)

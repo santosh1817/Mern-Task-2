@@ -7,7 +7,6 @@ const _=require('lodash')
 router.post('/register',(req,res)=>{
     const body=req.body
     const user =new User(body)
-    console.log(body)
     user.save()
     .then(user=>res.send(user))
     .catch(err=>res.send(err))
@@ -43,10 +42,9 @@ router.delete('/logout', authenticateUser,(req,res)=>{
     })
 })
 router.get('/loggedinuser', authenticateUser,async function(req,res){
-    //const {user,token}=req
+   
     try{
     let users=await User.find()
-    console.log(users)
     users.forEach((user)=>{
         user.tokens.forEach((token)=>{
            if(token.token===req.token){

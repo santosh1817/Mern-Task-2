@@ -15,8 +15,7 @@ class CreateReservation extends Component {
             username:'',
             slotArrayInitial:['10-11','11-12','12-1','2-3','3-4','4-5','5-6','6-7','7-8','8-9'],
             slotArray1:[],
-            loggedInUserId:'',
-            notice:''          
+            loggedInUserId:''        
         }
         
     }
@@ -31,8 +30,6 @@ class CreateReservation extends Component {
             this.setState(()=>({
                 loggedInUserId:response.data._id
             }))
-            
-            console.log(this.state.loggedInUserId)
         })
 
 
@@ -96,24 +93,13 @@ class CreateReservation extends Component {
             }
         })
         .then(response=>{
-            
-            
+
             if(response.data.error){
                 console.log(response.data.error)
-                // this.setState(()=>({
-                //     notice:response.data.error
-                // }))
+                this.setState(()=>({
+                    date:'',timeSlot:'',message:'',mobile:'',username:'',service:''
+                }))
 
-                // this.setState(()=>({
-                //     date:'',timeSlot:'',message:'',mobile:'',username:'',service:''
-                // }))
-
-                // setTimeout( () =>{
-                //     this.setState( () => ({
-                //         notice: '' 
-                //     }))
-
-                // },3000)
 
             }else{
                 this.setState(()=>({
@@ -121,11 +107,7 @@ class CreateReservation extends Component {
                 }))
                 this.props.history.push('/reservation/view')
             }
-
-
-            
-            
-            
+ 
         })
         .catch(err=>{
             console.log(err)
@@ -149,7 +131,7 @@ class CreateReservation extends Component {
                                     value={this.state.mobile}
                                     onChange={this.handleChange}
                                     className="form-control"
-                                    placeholder="person mobile"
+                                    placeholder="10 digit number"
                                 />
                             </label>
                         </div>

@@ -30,13 +30,14 @@ class Login extends React.Component {
             }))
         } else {
 
-                console.log(response)
+                
                 // write this to localStorage 
                 localStorage.setItem('token', response.data.token)
                 // redirect to notes page 
-                this.props.history.push('/reservation/view')
+                
                 // change the navigation links = update the state of isAuthenticated in the parent component
                 this.props.handleAuthentication(true)
+                this.props.history.push('/reservation/view')
             }
         })
     }
