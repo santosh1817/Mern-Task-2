@@ -7,7 +7,7 @@ class ListReservation extends Component {
         super(props)
         this.state={
             reservationsList:[],
-            radioButton:'',
+            selectedRadio:"",
             reservations:[]
         }
     }
@@ -27,21 +27,43 @@ class ListReservation extends Component {
     }
 
     handleRadioUpcoming=(e)=>{
-   
-      //console.log(date)
-      this.setState(()=>({
-        //reservations:this.state.reservationsList,
-        reservations:this.state.reservationsList.filter((item)=>{
-          //console.log( moment(new Date(item.date)).format('DD-MM-YYYY'),typeof date.toLocaleDateString)
-          var date1=new Date(item.date)
-          // var date2=new Date()
-          console.log(date1,'ii')
-          return item
-        })
-      }))
-      //console.log(this.state.reservationsList)
-
+      
     
+      this.setState({
+
+        selectedRadio:e.target.value,
+        reservations:this.state.reservationsList.filter((item)=>{
+          
+          return new Date(item.date)>new Date()
+        })
+      })
+     
+   
+    }
+
+    handleRadioPast=(e)=>{
+   
+     
+      this.setState({
+        selectedRadio:e.target.value,
+        
+        reservations:this.state.reservationsList.filter((item)=>{
+          
+          return new Date(item.date)<new Date()
+        })
+      })
+  
+    }
+    handleRadioAll=(e)=>{
+   
+     
+      this.setState({
+        selectedRadio:e.target.value,
+        reservations:this.state.reservationsList
+          
+        
+      })
+  
     }
 
     
@@ -53,9 +75,10 @@ class ListReservation extends Component {
 
                  <div>
                   <input type="radio"
-                   id="Upcoming reservations"
-                   name="reservation"
-                   value={this.state.radioButton}
+                   
+                   //name="upcoming reservations"
+                   checked={this.state.selectedRadio==="upcoming reservations"}
+                   value="upcoming reservations"  
                    onChange={this.handleRadioUpcoming}
                    
                   />
@@ -66,9 +89,25 @@ class ListReservation extends Component {
 
                  <div>
                   <input type="radio"
-                   id="Past reservations"
-                   name="reservation"
-                   value={this.state.radioButton}
+                  //  id="All reservations"
+                  //  name="reservation"
+                   checked={this.state.selectedRadio==="all reservations"}
+                   value="all reservations"
+                   onChange={this.handleRadioAll}
+                   
+                  />
+                  <label  >
+                    All Reservations
+                  </label>
+                 </div>
+
+                 <div>
+                  <input type="radio"
+                  //  id="Past reservations"
+                  //  name="reservation"
+                   checked={this.state.selectedRadio==="past reservations"}
+                   value="past reservations"
+                   onChange={this.handleRadioPast}
                   />
                   <label >
                     Past Reservations
